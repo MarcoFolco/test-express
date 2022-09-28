@@ -1,0 +1,12 @@
+<p>Welcome to the login form</p>
+{{#if authenticated}}
+    <p>{{name}} you are already logged in, please go to the <a href="/">home page</a>.
+    </p>
+{{/if}}
+{{#unless authenticated}}
+    <p>You are not logged in yet, please input your name in the form below</p>
+    <form action="/authentication/login" method="post">
+        <input type="text" name="name">
+        <button type="submit">Log in</button>
+    </form>
+{{/unless}}

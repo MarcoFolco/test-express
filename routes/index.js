@@ -7,10 +7,24 @@ function testFunction() {
 }
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { 
-    title: 'Prueba de Express',
-    testFunction: testFunction,
-  });
+  if(req.session.name) {
+    res.render('index', { 
+      title: 'Express Test',
+      name: req.session.name,
+      testFunction: testFunction,
+      nightMode: req.session.nightMode,
+      authenticated: Boolean(req.session.name),
+    });
+  } else {
+    res.redirect('/authentication');
+  }
+});
+
+router.post('/nightMode', function(req, res, next) {
+  if(req.body.changeNightMode) {
+    req.session.nightMode = !req.session.nightMode;
+  }
+  res.redirect('/')
 });
 
 module.exports = router;

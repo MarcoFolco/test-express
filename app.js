@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var contactoRouter = require('./routes/contacto');
 var apiRouter = require('./routes/api/core');
+var authenticationRouter = require('./routes/authentication');
 
 var app = express();
 
@@ -20,9 +21,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const session = require('express-session');
+
+app.use(session({
+  secret: 'yhXymLnuRG00iK9ETizY',
+  resave: false,
+  saveUninitialized: true,
+}))
+
 app.use('/', indexRouter);
 app.use('/contacto', contactoRouter);
 app.use('/api', apiRouter);
+app.use('/authentication', authenticationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

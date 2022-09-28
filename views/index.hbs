@@ -1,6 +1,17 @@
-<h1>{{title}}</h1>
-<p>This is a basic test of Express</p>
-<p>{{testFunction}}</p>
-<a href="contacto">Link to Contacto</a>
-<a href="api/travels">Link to Api Travels</a>
-<a href="api/discounts">Link to Api Discounts</a>
+{{#unless authenticated}}
+    <p>You must log in first <a href="/authentication">here</a>.</p>
+{{/unless}}
+{{#if authenticated}}
+    <div id="bg" style="padding: 15px;" {{#nightMode}}class="bg-black"{{/nightMode}}>
+    <h1 style="margin: 0;" {{#nightMode}}class="text-white"{{/nightMode}}>{{title}}</h1>
+    <p {{#nightMode}}class="text-white"{{/nightMode}}>Welcome {{name}}, this is a basic test of Express</p>
+    <p {{#nightMode}}class="text-white"{{/nightMode}}>{{testFunction}}</p>
+    <form action="/nightMode" method="post" style="margin-bottom: 10px;">
+        <button type="submit" name="changeNightMode" value="true">{{#nightMode}}Deactivate Night Mode{{/nightMode}}{{#unless nightMode}}Activate Night Mode{{/unless}}</button>
+    </form>
+    <a href="authentication/logout" class="d-block">Logout</a>
+    <a href="contacto" class="d-block">Link to Contacto</a>
+    <a href="api/travels" class="d-block">Link to Api Travels</a>
+    <a href="api/discounts" class="d-block">Link to Api Discounts</a>
+    </div>
+{{/if}}
